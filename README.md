@@ -1,6 +1,6 @@
 # Do latent adversarial perturbations resemble natural prompt-induced variation?
 
-**Short version.** A popular way to make language models harder to jailbreak is to train them against attacks aimed at their *internal activations* rather than at their input text. That defence implicitly treats small activation-space pertubations as a reasonable proxy for states that real prompts could plausibly induce. I tested the assumption on a small instruction-tuned model and found that while the attacks are not unusually *large* (a nudge no bigger than the one caused by politely rephrasing the question is enough to break a refusal), they however do point in directions that have little overlap with the variations induced by the sampled rephrasings. Displacement size (i.e., the norm of the activation change), which is the quantity these defences are usually calibrated in, does not distinguish an adversarial internal state from an ordinary one. Direction does.
+**Short version.** A popular way to make language models harder to jailbreak is to train them against attacks aimed at their *internal activations* rather than at their input text. That defence implicitly treats small activation-space pertubations as a reasonable proxy for states that real prompts could plausibly induce. I tested the assumption on a small instruction-tuned model and found that while the attacks are not unusually *large* (a nudge no bigger than the one caused by politely rephrasing the question is enough to break a refusal), they however do point in directions that have little overlap with the variations induced by the sampled rephrasings. Displacement size (i.e., the norm of the activation change), which is the quantity these defences are usually calibrated in, does not distinguish an adversarial internal state from an ordinary one. Direction may strongly matter.
 
 ---
 
@@ -111,7 +111,7 @@ The two-dimensional picture below compresses 896 dimensions down to 2 and is inc
 | H1 | paraphrases cluster tightly | **weakly supported** — a prompt is only 1.9× (layer 12) to 2.4× (layer 18) further from an unrelated prompt than from its own paraphrases |
 | H2 | successful δ is larger than rewording shifts | **not supported** — the median is 1.0× at layer 12 and 2.0× at layer 18 |
 | H3 | success rises with budget and is direction-specific | **supported** — 0%→100% across the sweep, and at matched budget optimised ≫ paraphrase ≈ random |
-| H4 | δ sits outside the paraphrase subspace but touches refusal | **supported** — 0.10 overlap against 0.075 chance, and refusal alignment negative for 10/10 prompts |
+| H4 | δ sits outside the paraphrase subspace but touches refusal | **weakly supported** — 0.10 overlap against 0.075 chance, and refusal alignment negative for 10/10 prompts |
 
 ## 5. What this means
 
@@ -121,7 +121,7 @@ The two-dimensional picture below compresses 896 dimensions down to 2 and is inc
 
 **There is a small, consistent mechanistic signature.** The attack points against the refusal direction for 10 out of 10 prompts at both layers, at 2.5–5× chance magnitude. That is a real effect and it matches the picture of refusal as a largely one-dimensional, suppressible feature. But it is a small component: an ordinary paraphrase displacement has a *larger* absolute alignment with the refusal axis (0.124 and 0.235), however, it just has no consistent sign. Suppressing refusal is part of what the attack does, not all of it.
 
-**Consequence for latent adversarial training.** If the perturbation budget is chosen so that perturbations look "small" i.e. comparable to the variation that real prompts induce, that ball already contains perturbations that reliably defeat refusal. So a size-based argument that a latent attack is or is not realistic does not do the work it appears to do, and a detector that flags "off-manifold" activations by distance would not flag these states at all. The reachability question stays open, but it is now a question about direction, which is a more tractable thing to study: one could ask whether the attack direction is expressible by *any* prompt, rather than merely by rewordings of this one.
+**Consequence for latent adversarial training.** If the perturbation budget is chosen so that perturbations look "small" i.e. comparable to the variation that real prompts induce, that ball already contains perturbations that reliably defeat refusal. So a size-based argument that a latent attack is or is not realistic does not do the work it appears to do, and a detector based only on pertubation norm, or distance from the original hidden state, would struggle to distinguish these attacks from natural rewording-scale variation. The reachability question stays open, but it is now a question about direction, which is a more tractable thing to study: one could ask whether the attack direction is expressible by *any* prompt, rather than merely by rewordings of this one.
 
 ## 6. Limitations
 
