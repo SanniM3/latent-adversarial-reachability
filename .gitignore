@@ -216,3 +216,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- project specific ---
+# Harmful prompt text and model completions are never committed.
+data/prompts.local.json
+data/advbench_harmful_behaviors.csv
+results/**/*.local.jsonl
+results/*.local.jsonl
+# Large tensors; regenerate with `python -m src.run_experiment`.
+results/**/*.pt
+results/quick/
+figures/quick/
+# Scratch outputs of notebooks/workbook.ipynb; the canonical ones live in results/ and figures/.
+results_ia/
+figures_ia/
