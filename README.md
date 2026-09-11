@@ -115,7 +115,7 @@ The two-dimensional picture below compresses 896 dimensions down to 2 and is inc
 
 ## 5. What this means
 
-**The pre-registered guess was wrong in a useful way.** H2 encoded the intuition that a jailbreak must shove the model somewhere extreme. Instead, at layer 12 the median successful perturbation is the size of the shift you get from adding "Could you…?" to the front of the sentence, and by every scalar a monitor might compute such as distance moved, cosine to the original state, size relative to the state itself, a successful adversarial state is indistinguishable from a paraphrase.
+**An initial hypothesis was wrong in a useful way.** H2 encoded the intuition that a jailbreak must shove the model somewhere extreme. Instead, at layer 12 the median successful perturbation is the size of the shift you get from adding "Could you…?" to the front of the sentence, and by every scalar a monitor might compute such as distance moved, cosine to the original state, size relative to the state itself, a successful adversarial state is indistinguishable from a paraphrase.
 
 **What is unusual is the direction.** Only 10% of the attack vector lies in the five-dimensional subspace that rewording explores, against 7.5% for a vector drawn at random: the optimiser finds a direction rewording essentially does not take, and does not travel any further than rewording does to get there. The matched-size controls say the same thing behaviourally: move the identical distance toward a paraphrase and refusal survives every time at `1×`.
 
